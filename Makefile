@@ -1,56 +1,46 @@
 
 # hashicorp/terraform:light
-TERRAFORMIMAGE=test
-
+TERRAFORMIMAGE=follyengine/terraform
+CONTAINERNAME=folly-terraform
 
 plan:
 	echo "SHOW terraform plan"
-	docker run --rm -it \
-		-v $(PWD):/data \
-		-w /data \
-		-e HOME=/data \
-		$(TERRAFORMIMAGE) plan
+	docker exec -it $(CONTAINERNAME) terraform plan
 
 shell:
-	docker run --rm -it \
-		-v $(PWD):/data \
-		-w /data \
-		-e HOME=/data \
-		--entrypoint bash \
-		$(TERRAFORMIMAGE)
+	docker exec -it $(CONTAINERNAME) bash
 
 build:
 	cat Dockerfile | docker build -t $(TERRAFORMIMAGE) -
 
 .terraform:
-	docker run -i -t -v $(PWD):/data -w /data $(TERRAFORMIMAGE) init
+	docker exec -it $(CONTAINERNAME) terraform init
 
 init:
-	docker run -i -t -v $(PWD):/data -w /data $(TERRAFORMIMAGE) init
+	docker cp $(CONTAINERNAME):/terraform.d .
+	docker exec -it $(CONTAINERNAME) terraform init
+	docker exec -it $(CONTAINERNAME) lpass login --trust $(shell grep lastpass_username terraform.tfvars | cut -f3 -d' ')
 
 cloud-init-key:
 	ssh-keygen -q -f ./cloud-init-key -N ""
 
 apply: cloud-init-key .terraform
 	# TODO: need to set STACKDOMAIN, and should use it in terraform...
-	docker run --rm -it \
-		-v $(PWD):/data \
-		-w /data \
-		-e HOME=/data \
-		$(TERRAFORMIMAGE) apply
+	docker exec -it $(CONTAINERNAME) terraform apply
 	# TODO: wait for cloud-init to finish (docker swarm up, with the right number of nodes)
 	# TODO: docker ona create --branch master -stack seaweedfs --stack traefik --stack prometheus --stack keycloak --stack cronicle swarm-infra
 
 show: .terraform
-	docker run --rm -it \
-		-v $(PWD):/data \
-		-w /data \
-		-e HOME=/data \
-		$(TERRAFORMIMAGE) show
+	docker exec -it $(CONTAINERNAME) terraform show
 
 destroy:
-	docker run --rm -it \
+	docker exec -it $(CONTAINERNAME) terraform destroy
+
+# runing container in the background so we don't have to keep putting in the lastpass 2fa key
+start:
+	docker run --name $(CONTAINERNAME) -dit --rm \
 		-v $(PWD):/data \
 		-w /data \
 		-e HOME=/data \
-		$(TERRAFORMIMAGE) destroy
+		--entrypoint tail \
+		$(TERRAFORMIMAGE) -f /dev/null

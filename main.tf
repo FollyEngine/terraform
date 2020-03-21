@@ -15,7 +15,13 @@ provider "lastpass" {
     password = var.lastpass_password
 }
 
-resource "lastpass_secret" "mydb" {
-    name = "mqtt"
+# find the id of your secret using `lpass ls <name>`
+data "lastpass_secret" "mqtt" {
+    #name = "mqtt"
+    id = "8934492033401515883"
 }
 
+output "custom_field" {
+    //value = data.lastpass_secret.mqtt.custom_fields.host
+    value = data.lastpass_secret.mqtt.username
+}
