@@ -10,6 +10,7 @@ will result in:
 * [ ] Unifi controller configured with initial Folly WiFi
 * [ ] the 7inch screen working
 * [ ] secrets, passords etc from Lastpass
+* [ ] terraform state stored in the terraform cloud
 
 ## How to use
 
