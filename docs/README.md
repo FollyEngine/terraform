@@ -8,7 +8,9 @@ somewhere in the order of $600 each, plus extra meshAP's, network switch etc
 2. RPi usb-c power adapter ($15)
 3. 7 inch touch screen ($200)
 4. 7 inch touch screen case ($45)
-5. sd-card ($) **TODO - look at USB boot and usb flash**
+5. boot media
+   * sd-card ($) OR
+   * USB boot and usb flash (sandisk ultra fit usb 3.1 32GB ~$15?) - https://www.amazon.com.au/gp/product/B077VXV323/ref=crt_ewc_img_huc_1?ie=UTF8&psc=1&smid=A1E8JZNQ4REMVH
 6. Ubiquiti mesh AP and its poe power ($200)
 7. double adaptor (or more)
 7. a usb network adapter or USB mobile phone connection
