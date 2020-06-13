@@ -4,16 +4,16 @@
 
 somewhere in the order of $600 each, plus extra meshAP's, network switch etc
 
-  1 Raspberry Pi 4 (4GB- $102), (2GB - $75)
-  2 RPi usb-c power adapter ($15)
-  3 7 inch touch screen ($200)
-  4 7 inch touch screen case ($45)
-  5 sd-card ($) **TODO - look at USB boot and usb flash**
-  6 Ubiquiti mesh AP and its poe power ($200)
-  7 double adaptor (or more)
-  7 a usb network adapter or USB mobile phone connection
-    * I'd like to be able to use the dashboard to reconfigure the rpi wifi to connect to the local wifi
-  8 2 or 3 network cables ($50) depending on length
+   1 Raspberry Pi 4 (4GB- $102), (2GB - $75)
+   2 RPi usb-c power adapter ($15)
+   3 7 inch touch screen ($200)
+   4 7 inch touch screen case ($45)
+   5 sd-card ($) **TODO - look at USB boot and usb flash**
+   6 Ubiquiti mesh AP and its poe power ($200)
+   7 double adaptor (or more)
+   7 a usb network adapter or USB mobile phone connection
+      * I'd like to be able to use the dashboard to reconfigure the rpi wifi to connect to the local wifi
+   8 2 or 3 network cables ($50) depending on length
 
 if you're going to use 3 or 4 mesh ap's, then you could get the 60W unifi 8 port switch for $215, and buy the 5xmesh ap set for $800 (no poe adapters)
 or, the $70 nanoswitch could simplify 3 ap setups... https://www.mwave.com.au/product/ubiquiti-nanoswitch-outdoor-4port-poe-passthrough-switch-ac14841
