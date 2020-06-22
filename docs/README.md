@@ -24,7 +24,7 @@ interestingly, element14 has possibly better prices atm -
 
 (add step by step and photos)
 
-## Softare
+## Software
 
 1 Docker
 2 Unifi controller in a container
@@ -44,6 +44,12 @@ interestingly, element14 has possibly better prices atm -
 
 
 ## and how to install the software using the terraform bits in this repo
+
+### Step1: configure the rpi 4 to boot from USB
+
+Use a known good sd-card to boot, then run
+
+`setup-usb-boot.sh`
 
 ## Major bits that need work
 
