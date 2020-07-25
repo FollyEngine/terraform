@@ -60,21 +60,24 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
    1. [x] bootstrap to booting from USB
    2. [x] set hostname
    3. [x] setup tailscale (wireguard vpn)
-2. [ ] terraform!
-3. [x] Docker
-4. [x] Unifi controller in a container
+2. [x] Docker
+3. [x] Unifi controller in a container
    1. [ ] automate the setup of the unifi controller - I'm doing it by hand atm (Folly, Fight)
-5. [ ] pi-hole / dnsmasq
-6. [ ] some kind of database that can cope with power outages
+4. [x] pi-hole / dnsmasq
+   1. [ ] fix the eth0-static-ip remote-exec
+   2. [ ] figure out what mqtt ip address the esp's are set to
+5. [ ] node-red
+   1. [ ] work out how to backup/restore/update from git...
+6. [ ] mqtt
+7. [ ] some kind of database that can cope with power outages
    1. https://forum.cockroachlabs.com/t/cockroach-on-the-raspbery-pi-3-64-bit/1246
    2. https://www.raspberrypi.org/forums/viewtopic.php?t=200748
-7. [ ] node-red
-8. [ ] mqtt
-9. [ ] logging / monitoring?
-10. [ ] something to allow edge remote mgmt
-11. [ ] portainer
-12. [ ] dashboard, and displaying it on the screen
-13. [ ] need a password? or some way to lock the screen....
+8. [ ] logging / monitoring?
+9. [ ] something to allow edge remote mgmt
+10. [ ] portainer
+11. [ ] dashboard, and displaying it on the screen
+12. [ ] need a password? or some way to lock the screen....
+13. [x] figure out how to get the docker provisioner to not reprovision every apply
 
 ## and how to install the software using the terraform bits in this repo
 

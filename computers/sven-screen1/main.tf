@@ -45,3 +45,37 @@ module "unifi-controller" {
   ip_address = var.ip_address
   initial_user = var.initial_user
 }
+
+module "pihole" {
+  source = "../../modules/pihole"
+
+  host_name = "sven-screen1"
+  ip_address = var.ip_address
+  initial_user = var.initial_user
+  initial_password = var.initial_password
+}
+
+#resource "null_resource" "eth0-static-ip" {
+#  connection {
+#    type = "ssh"    
+#    user = var.initial_user
+#    host = var.ip_address
+#  }
+#
+#  provisioner "remote-exec" {
+#    inline = [
+#    "echo \"interface eth0\" >> /etc/dhcpcd.conf",
+#    "echo \"   static ip_address=10.11.11.1/24\" >> /etc/dhcpcd.conf",
+#    "echo \"   nohook wpa_supplicant\" >> /etc/dhcpcd.conf",
+#    "systemctl daemon-reload",
+#    "service dhcpcd restart",
+#    "sh -c \"echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf\"",
+#    "iptables -t nat -A  POSTROUTING -o eth1 -j MASQUERADE",
+#    "sh -c \"iptables-save > /etc/iptables.ipv4.nat\"",
+#    "sh -c \"iptables-restore < /etc/iptables.ipv4.nat\""
+#    ]
+#  }
+#}
+
+# need to set the dhcpserver on, and ip range
+# gateway == 10.11.11.1

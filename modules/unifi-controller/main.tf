@@ -25,10 +25,19 @@ provider "docker" {
 #      "sudo docker run -it -d --restart=always --init --net=host -e TZ='Australia/Brisbane' 
 #           -v /home/pi/unifi:/unifi --name unifi jacobalberty/unifi:5.12.66-arm32v7"
 
+data "docker_registry_image" "unifi" {
+  name = "jacobalberty/unifi:5.13.32-arm32v7"
+}
+
+resource "docker_image" "unifi" {
+  name          = data.docker_registry_image.unifi.name
+  pull_triggers = ["${data.docker_registry_image.unifi.sha256_digest}"]
+}
+
 # https://hub.docker.com/r/jacobalberty/unifi/tags
-resource "docker_container" "unifi-513322-arm32v7" {
+resource "docker_container" "unifi" {
   name  = "unifi"
-  image = "jacobalberty/unifi:5.13.32-arm32v7"
+  image = docker_image.unifi.latest
 
   restart = "always"
   network_mode = "host"     # simplifies adoption
@@ -37,4 +46,5 @@ resource "docker_container" "unifi-513322-arm32v7" {
       source = "unifi_data"
       type = "volume"
   }
+  working_dir       = "/unifi"
 }
