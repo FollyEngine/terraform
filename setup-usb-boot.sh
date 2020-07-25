@@ -40,36 +40,37 @@ if ! grep  stable /etc/default/rpi-eeprom-update; then
     sudo reboot
 fi
 
-# print eeprom state
-vcgencmd bootloader_version
-vcgencmd bootloader_config
+if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf214; then
+    # print eeprom state
+    vcgencmd bootloader_version
+    vcgencmd bootloader_config
 
-# now set USB BOOT, eject sd-card, insert usb, and reboot
+    # now set USB BOOT, eject sd-card, insert usb, and reboot
 
-#root@raspberrypi:/home/pi# rpi-eeprom-config /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
+    #root@raspberrypi:/home/pi# rpi-eeprom-config /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
 
-# see https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md
-# BOOT_ORDER=0xf241 == sd, usb, network, repeat
-# BOOT_ORDER=0xf214 == usb, sd, network, repeat
+    # see https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md
+    # BOOT_ORDER=0xf241 == sd, usb, network, repeat
+    # BOOT_ORDER=0xf214 == usb, sd, network, repeat
 
-cat > bootconf.txt <<HERE
-[all]
-BOOT_UART=0
-WAKE_ON_GPIO=1
-POWER_OFF_ON_HALT=1
-DHCP_TIMEOUT=45000
-DHCP_REQ_TIMEOUT=4000
-TFTP_FILE_TIMEOUT=30000
-ENABLE_SELF_UPDATE=1
-DISABLE_HDMI=0
-BOOT_ORDER=0xf214
-HERE
+    cat > bootconf.txt <<HERE
+    [all]
+    BOOT_UART=0
+    WAKE_ON_GPIO=1
+    POWER_OFF_ON_HALT=1
+    DHCP_TIMEOUT=45000
+    DHCP_REQ_TIMEOUT=4000
+    TFTP_FILE_TIMEOUT=30000
+    ENABLE_SELF_UPDATE=1
+    DISABLE_HDMI=0
+    BOOT_ORDER=0xf214
+    HERE
 
-rpi-eeprom-config --out pieeprom-new.bin --config bootconf.txt /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
+    rpi-eeprom-config --out pieeprom-new.bin --config bootconf.txt /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
 
-sudo rpi-eeprom-update -d -f ./pieeprom-new.bin
+    sudo rpi-eeprom-update -d -f ./pieeprom-new.bin
 
-echo "REMOVE the SDCARD, and install a bootable USB drive into the RPI"
+    echo "REMOVE the SDCARD, and install a bootable USB drive into the RPI"
 
-sudo halt
-
+    sudo halt
+fi
