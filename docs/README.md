@@ -61,7 +61,7 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
    2. [x] set hostname
    3. [x] setup tailscale (wireguard vpn)
 2. [ ] terraform!
-3. [ ] Docker
+3. [x] Docker
 4. [ ] Unifi controller in a container
 5. [ ] pi-hole / dnsmasq
 6. [ ] some kind of database that can cope with power outages
