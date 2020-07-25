@@ -62,7 +62,8 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
    3. [x] setup tailscale (wireguard vpn)
 2. [ ] terraform!
 3. [x] Docker
-4. [ ] Unifi controller in a container
+4. [x] Unifi controller in a container
+   1. [ ] automate the setup of the unifi controller - I'm doing it by hand atm (Folly, Fight)
 5. [ ] pi-hole / dnsmasq
 6. [ ] some kind of database that can cope with power outages
    1. https://forum.cockroachlabs.com/t/cockroach-on-the-raspbery-pi-3-64-bit/1246

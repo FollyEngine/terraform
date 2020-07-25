@@ -37,6 +37,7 @@ module "dockerd" {
   initial_user = var.initial_user
 }
 
+# see https://100.88.185.82:8443
 module "unifi-controller" {
   source = "../../modules/unifi-controller"
 
