@@ -16,10 +16,16 @@ build:
 .terraform:
 	docker exec -it $(CONTAINERNAME) terraform init
 
-init:
+terraform.tfvars:
+	echo
+	echo "You need a valid terraform.tfvars file with the lastpass credentials in it"
+	echo
+	exit 1
+
+init: #terraform.tfvars
 	docker cp $(CONTAINERNAME):/terraform.d .
 	docker exec -it $(CONTAINERNAME) terraform init
-	docker exec -it $(CONTAINERNAME) lpass login --trust $(shell grep lastpass_username terraform.tfvars | cut -f3 -d' ')
+	#docker exec -it $(CONTAINERNAME) lpass login --trust $(shell grep lastpass_username terraform.tfvars | cut -f3 -d' ')
 
 cloud-init-key:
 	ssh-keygen -q -f ./cloud-init-key -N ""
@@ -41,6 +47,10 @@ start:
 	docker run --name $(CONTAINERNAME) -dit --rm \
 		-v $(PWD):/data \
 		-w /data \
-		-e HOME=/data \
+		-v $(HOME)/:/home/ \
+		-e HOME=/home \
 		--entrypoint tail \
 		$(TERRAFORMIMAGE) -f /dev/null
+
+stop:
+	docker rm -f $(CONTAINERNAME)

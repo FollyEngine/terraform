@@ -94,11 +94,16 @@ setup-usb-boot.sh <rpi-ip-address>
 
 ### Step3: use the new hostname in terraform
 
-1. Add host to xxx.tf, and run `make plan` to confirm that nothing untoward is about to happen, then
-2. run `make apply`
+1. run `make build`
+2. run `make start`
+3. run `make init`
+4. Add host, and its tailscale ip to xxx.tf,
+5. run `make plan` to confirm that nothing untoward is about to happen, then
+6. run `make apply`
 
 ## Major bits that need work
 
+- [ ] **URGENT** setup rules so the folly base stations can't get out to other nodes, only the user desktops can get into the base stations
 - [ ] how to make the touchscreen node-red more useful
 - [ ] THE DATABASE - mongo / etc were terrible @ woodford when we lots power
 - [ ] screen lock!

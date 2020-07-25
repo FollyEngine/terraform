@@ -7,12 +7,12 @@ variable "initial_password" {
     default = "raspberry"
 }
 
-resource "null_resource" "folly-screen1" {
+resource "null_resource" "sven-screen1" {
   connection {
     type = "ssh"    
     user = var.initial_user
     password = var.initial_password
-    host = "10.10.10.143"
+    host = "100.88.185.82"
   }
 
   provisioner "file" {
@@ -31,26 +31,9 @@ resource "null_resource" "folly-screen1" {
       "sudo apt upgrade -yq",
       "sudo apt install vim-tiny curl",
       // don't run it again - i guess each of these should be separate resources..
-      //"curl https://get.docker.com | sh",
+      "if ! which docker; then curl https://get.docker.com | sh; fi",
       "sudo usermod -aG docker pi",
     ]
   }
 }
 
-resource "null_resource" "folly-screen1_unifi" {
-  depends_on = [null_resource.folly-screen1]
-  connection {
-    type = "ssh"    
-    user = var.initial_user
-    password = var.initial_password
-    host = "10.10.10.129"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      # -p 8080:8080 -p 8443:8443 -p 3478:3478/udp -p 10001:10001/udp
-      # user --net=host to simplify the adoption process
-      "sudo docker run -it -d --restart=always --init --net=host -e TZ='Australia/Brisbane' -v /home/pi/unifi:/unifi --name unifi jacobalberty/unifi:5.12.66-arm32v7"
-    ]
-  }
-}
