@@ -39,13 +39,13 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
    3. RPi usb-a power adapter (\$20)
    4. FLIRC case (\$25)
    5. 16GB sdcard (\$20)
-2. OR pi4 2GB (\$135) <------------ makes more sense
+2. OR pi4 2GB (\$155) <------------ makes more sense
    1. Raspberry Pi 4 (2GB - \$75)
    2. RPi usb-c power adapter (\$15)
    3. Argon ONE case (\$50)
    4. USB boot and usb flash (sandisk ultra fit usb 3.1 32GB ~\$15?)
 3. Ubiquiti mesh AP and its poe power (\$170)
-4. double adaptor (or more)
+4. 240v double adaptor (or more)
 5. a usb network adapter or USB mobile phone connection
    1. I'd like to be able to use the dashboard to reconfigure the rpi wifi to connect to the local wifi
 6. 2 or 3 network cables (\$50) depending on length
@@ -68,8 +68,9 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
    2. [ ] figure out what mqtt ip address the esp's are set to
    3. [ ] add NAT rules for wan0 (telstra dongle) and rpi wifi
 5. [x] mqtt
-6. [ ] node-red
-   1. [ ] work out how to backup/restore/update from git...
+6. [x] node-red
+   1. [ ] work out how to install extras...
+   2. [ ] work out how to backup/restore/update from git...
 7. [ ] add info on how to use the rpi wifi
    1. [ ] using /boot
    2. [ ] using ssh
