@@ -64,7 +64,7 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 3. [x] Unifi controller in a container
    1. [ ] automate the setup of the unifi controller - I'm doing it by hand atm (Folly, Fight)
 4. [x] pi-hole / dnsmasq
-   1. [ ] fix the eth0-static-ip remote-exec
+   1. [1] fix the eth0-static-ip remote-exec
    2. [ ] figure out what mqtt ip address the esp's are set to
    3. [ ] add NAT rules for wan0 (telstra dongle) and rpi wifi
 5. [x] mqtt
@@ -83,6 +83,7 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 12. [ ] dashboard, and displaying it on the screen
 13. [ ] need a password? or some way to lock the screen....
 14. [x] figure out how to get the docker provisioner to not reprovision every apply
+15. [ ] figure out why the repote-exec provisioner needs the ssh-passworkd, not a key...
 
 ## and how to install the software using the terraform bits in this repo
 

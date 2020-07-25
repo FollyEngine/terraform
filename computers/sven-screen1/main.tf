@@ -64,27 +64,28 @@ module "mqtt" {
   initial_password = var.initial_password
 }
 
-#resource "null_resource" "eth0-static-ip" {
-#  connection {
-#    type = "ssh"    
-#    user = var.initial_user
-#    host = var.ip_address
-#  }
-#
-#  provisioner "remote-exec" {
-#    inline = [
-#    "echo \"interface eth0\" >> /etc/dhcpcd.conf",
-#    "echo \"   static ip_address=10.11.11.1/24\" >> /etc/dhcpcd.conf",
-#    "echo \"   nohook wpa_supplicant\" >> /etc/dhcpcd.conf",
-#    "systemctl daemon-reload",
-#    "service dhcpcd restart",
-#    "sh -c \"echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf\"",
-#    "iptables -t nat -A  POSTROUTING -o eth1 -j MASQUERADE",
-#    "sh -c \"iptables-save > /etc/iptables.ipv4.nat\"",
-#    "sh -c \"iptables-restore < /etc/iptables.ipv4.nat\""
-#    ]
-#  }
-#}
+resource "null_resource" "eth0-static-ip" {
+  connection {
+    type = "ssh"    
+    user = var.initial_user
+    password = var.initial_password
+    host = var.ip_address
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+    "echo \"interface eth0\" >> /etc/dhcpcd.conf",
+    "echo \"   static ip_address=10.11.11.1/24\" >> /etc/dhcpcd.conf",
+    "echo \"   nohook wpa_supplicant\" >> /etc/dhcpcd.conf",
+    "sudo systemctl daemon-reload",
+    "sudo service dhcpcd restart",
+    "sudo sh -c \"echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf\"",
+    "sudo iptables -t nat -A  POSTROUTING -o eth1 -j MASQUERADE",
+    "sudo sh -c \"iptables-save > /etc/iptables.ipv4.nat\"",
+    "sudo sh -c \"iptables-restore < /etc/iptables.ipv4.nat\""
+    ]
+  }
+}
 
 # need to set the dhcpserver on, and ip range
 # gateway == 10.11.11.1
