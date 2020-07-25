@@ -46,5 +46,18 @@ resource "docker_container" "unifi" {
       source = "unifi_data"
       type = "volume"
   }
+
+
+  # only here to stop apply causing a "change" event
   working_dir       = "/unifi"
+    healthcheck {
+            interval     = "0s" 
+            retries      = 0 
+            start_period = "5m0s"
+            test         = [
+                "CMD-SHELL",
+                "/usr/local/bin/docker-healthcheck.sh || exit 1",
+        ] 
+            timeout      = "0s" 
+    }
 }

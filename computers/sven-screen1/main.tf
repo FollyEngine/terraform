@@ -55,6 +55,15 @@ module "pihole" {
   initial_password = var.initial_password
 }
 
+module "mqtt" {
+  source = "../../modules/mqtt"
+
+  host_name = "sven-screen1"
+  ip_address = var.ip_address
+  initial_user = var.initial_user
+  initial_password = var.initial_password
+}
+
 #resource "null_resource" "eth0-static-ip" {
 #  connection {
 #    type = "ssh"    
@@ -79,3 +88,4 @@ module "pihole" {
 
 # need to set the dhcpserver on, and ip range
 # gateway == 10.11.11.1
+

@@ -42,7 +42,7 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 2. OR pi4 2GB (\$135) <------------ makes more sense
    1. Raspberry Pi 4 (2GB - \$75)
    2. RPi usb-c power adapter (\$15)
-   3. FLIRC case (\$30)
+   3. Argon ONE case (\$50)
    4. USB boot and usb flash (sandisk ultra fit usb 3.1 32GB ~\$15?)
 3. Ubiquiti mesh AP and its poe power (\$170)
 4. double adaptor (or more)
@@ -66,18 +66,23 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 4. [x] pi-hole / dnsmasq
    1. [ ] fix the eth0-static-ip remote-exec
    2. [ ] figure out what mqtt ip address the esp's are set to
-5. [ ] node-red
+   3. [ ] add NAT rules for wan0 (telstra dongle) and rpi wifi
+5. [x] mqtt
+6. [ ] node-red
    1. [ ] work out how to backup/restore/update from git...
-6. [ ] mqtt
-7. [ ] some kind of database that can cope with power outages
+7. [ ] add info on how to use the rpi wifi
+   1. [ ] using /boot
+   2. [ ] using ssh
+   3. [ ] using node-red
+8. [ ] some kind of database that can cope with power outages
    1. https://forum.cockroachlabs.com/t/cockroach-on-the-raspbery-pi-3-64-bit/1246
    2. https://www.raspberrypi.org/forums/viewtopic.php?t=200748
-8. [ ] logging / monitoring?
-9. [ ] something to allow edge remote mgmt
-10. [ ] portainer
-11. [ ] dashboard, and displaying it on the screen
-12. [ ] need a password? or some way to lock the screen....
-13. [x] figure out how to get the docker provisioner to not reprovision every apply
+9. [ ] logging / monitoring?
+10. [ ] something to allow edge remote mgmt
+11. [ ] portainer
+12. [ ] dashboard, and displaying it on the screen
+13. [ ] need a password? or some way to lock the screen....
+14. [x] figure out how to get the docker provisioner to not reprovision every apply
 
 ## and how to install the software using the terraform bits in this repo
 

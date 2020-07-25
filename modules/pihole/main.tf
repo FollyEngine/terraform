@@ -71,6 +71,18 @@ resource "docker_container" "pihole" {
   capabilities {
     add  = ["NET_ADMIN", "CAP_SYS_NICE"]
   }
+
+  # only here to stop apply causing a "change" event
+    healthcheck {
+        interval     = "0s" 
+        retries      = 0 
+        start_period = "0s"
+        test         = [
+            "CMD-SHELL",
+            "dig +norecurse +retry=0 @127.0.0.1 pi.hole || exit 1",
+        ] 
+        timeout      = "0s"
+    }
 }
 
 // TODO: can configure dnsmasq using a file that goes into /etc/dnsmasq.d/

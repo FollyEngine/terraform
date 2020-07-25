@@ -39,7 +39,7 @@ resource "null_resource" "sshkeys" {
   }
 }
 
-resource "null_resource" "ssh_remember1" {
+resource "null_resource" "ssh_remember" {
   provisioner "local-exec" {
     command = "ssh-keyscan -H ${var.ip_address} >> ~/.ssh/known_hosts"
   }
