@@ -1,5 +1,10 @@
 # What it takes to build a Folly base station
 
+Make sure you have the follyengine@gmail.com Tailscale vpn setup on your desktop
+
+- https://tailscale.com/kb/1017/install
+- [ ] TODO: work out DNS...
+
 ## Hardware components
 
 ### lcd version, with node-red on rpi
@@ -51,21 +56,24 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 
 ## Software
 
-1. setup-usb-boot.txt to bootstrap to booting from USB
-1. Docker
-1. Unifi controller in a container
-1. pi-hole / dnsmasq
-1. some kind of database that can cope with power outages
-   2. https://forum.cockroachlabs.com/t/cockroach-on-the-raspbery-pi-3-64-bit/1246
-   3. https://www.raspberrypi.org/forums/viewtopic.php?t=200748
-1. node-red
-1. mqtt
-1. logging / monitoring?
-1. something to allow edge remote mgmt
-   1. wireguard?
-   2. portainer
-1. dashboard, and displaying it on the screen
-   1. need a password? or some way to lock the screen....
+1. setup-usb-boot.sh to
+   1. [x] bootstrap to booting from USB
+   2. [x] set hostname
+   3. [x] setup tailscale (wireguard vpn)
+2. [ ] terraform!
+3. [ ] Docker
+4. [ ] Unifi controller in a container
+5. [ ] pi-hole / dnsmasq
+6. [ ] some kind of database that can cope with power outages
+   1. https://forum.cockroachlabs.com/t/cockroach-on-the-raspbery-pi-3-64-bit/1246
+   2. https://www.raspberrypi.org/forums/viewtopic.php?t=200748
+7. [ ] node-red
+8. [ ] mqtt
+9. [ ] logging / monitoring?
+10. [ ] something to allow edge remote mgmt
+11. [ ] portainer
+12. [ ] dashboard, and displaying it on the screen
+13. [ ] need a password? or some way to lock the screen....
 
 ## and how to install the software using the terraform bits in this repo
 

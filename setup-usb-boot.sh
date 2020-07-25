@@ -73,8 +73,40 @@ HERE
     sudo rpi-eeprom-update -d -f ./pieeprom-new.bin
 
     echo "REMOVE the SDCARD, and install a bootable USB drive into the RPI"
+    echo "and once booted, run $0 <rpi addess> again, to continue boostrap"
 
     sudo halt
+
+    exit
+fi
+
+USBDRIVE=/dev/sda
+ROOTDEV=$(mount | grep "on / " | cut -d ' ' -f 1)
+
+if [[ "${ROOTDEV}" == "${USBDRIVE}"* ]]; then
+    echo "I think we've booted from USB, setting up the rest.."
+
+    if [[ "$(hostname)" == "raspberrypi" ]]; then
+        echo "SET THE HOSTNAME"
+
+        read -p "enter new hostname (a-z0-9 only): " NAME
+        sudo hostnamectl set-hostname ${NAME}
+
+        echo "REBOOTING to set hostname, please"
+        echo "and once booted, run $0 <rpi addess> again, to continue boostrap"
+
+        sudo reboot --reboot
+        exit
+    fi
+
+    sudo apt-get install apt-transport-https
+    curl https://pkgs.tailscale.com/stable/raspbian/buster.gpg | sudo apt-key add -
+    curl https://pkgs.tailscale.com/stable/raspbian/buster.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+    sudo apt-get update
+    sudo apt-get install tailscale
+
+    sudo tailscale up
 fi
 
 echo "SETUP complete, the rpi should now boot from USB"
