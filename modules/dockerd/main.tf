@@ -15,18 +15,12 @@ variable "initial_user" {
   type        = string
 }
 
-variable "initial_password" {
-  description = "raspberry"
-  type        = string
-}
-
 resource "null_resource" "dockerd" {
   #name = "${var.host_name}-docker"
 
   connection {
     type = "ssh"    
     user = var.initial_user
-    password = var.initial_password
     host = var.ip_address
   }
 

@@ -47,8 +47,10 @@ start:
 	docker run --name $(CONTAINERNAME) -dit --rm \
 		-v $(PWD):/data \
 		-w /data \
-		-v $(HOME)/:/home/ \
-		-e HOME=/home \
+		-v $(HOME)/:/home/terraform/ \
+		-e HOME=/home/terraform/ \
+		-u 1000 \
+		--net=host \
 		--entrypoint tail \
 		$(TERRAFORMIMAGE) -f /dev/null
 

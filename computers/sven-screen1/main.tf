@@ -29,13 +29,18 @@ module "sshkeys" {
   initial_password = var.initial_password
 }
 
-
 module "dockerd" {
   source = "../../modules/dockerd"
 
   host_name = "sven-screen1"
   ip_address = var.ip_address
   initial_user = var.initial_user
-  initial_password = var.initial_password
 }
 
+module "unifi-controller" {
+  source = "../../modules/unifi-controller"
+
+  host_name = "sven-screen1"
+  ip_address = var.ip_address
+  initial_user = var.initial_user
+}

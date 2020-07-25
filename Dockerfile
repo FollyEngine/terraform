@@ -14,3 +14,5 @@ RUN apk add --no-cache lastpass-cli bash \
     && mkdir -p /terraform.d/plugins/linux_amd64
 # TODO: need to figure out how to make the plugins dir not be in the mounted volume...
 COPY --from=lastpass-provider /go/bin/terraform-provider-lastpass /terraform.d/plugins/linux_amd64/terraform-provider-lastpass_v0.4.2
+
+RUN adduser -u 1000 -D terraform

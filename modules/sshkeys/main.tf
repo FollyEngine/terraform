@@ -38,3 +38,10 @@ resource "null_resource" "sshkeys" {
     destination = "/home/pi/.ssh"
   }
 }
+
+resource "null_resource" "ssh_remember1" {
+  provisioner "local-exec" {
+    command = "ssh-keyscan -H ${var.ip_address} >> ~/.ssh/known_hosts"
+  }
+  depends_on = [null_resource.sshkeys]
+}
