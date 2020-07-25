@@ -51,6 +51,7 @@ resource "docker_container" "nodered" {
   }
 
   # only here to stop apply causing a "change" event
+  working_dir       = "/usr/src/node-red"
   healthcheck {
           interval     = "0s" 
           retries      = 0 

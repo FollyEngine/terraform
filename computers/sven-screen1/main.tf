@@ -73,6 +73,16 @@ module "node-red" {
   initial_password = var.initial_password
 }
 
+// Kiosk mode - for pi's with screens
+module "kiosk" {
+  source = "../../modules/kiosk"
+
+  host_name = "sven-screen1"
+  ip_address = var.ip_address
+  initial_user = var.initial_user
+  initial_password = var.initial_password
+}
+
 resource "null_resource" "eth0-static-ip" {
   connection {
     type = "ssh"    

@@ -81,10 +81,13 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 9. [ ] logging / monitoring?
 10. [ ] something to allow edge remote mgmt
 11. [ ] portainer
-12. [ ] dashboard, and displaying it on the screen
+12. [x] kiosk, autologin and displaying it on the screen
+    1. [ ] brightness
+    2. [ ] screen on and off control
+    3. [ ]
 13. [ ] need a password? or some way to lock the screen....
 14. [x] figure out how to get the docker provisioner to not reprovision every apply
-15. [ ] figure out why the repote-exec provisioner needs the ssh-passworkd, not a key...
+15. [ ] figure out why the remote-exec provisioner needs the ssh-passworkd, not a key...
 
 ## and how to install the software using the terraform bits in this repo
 

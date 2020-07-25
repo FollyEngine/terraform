@@ -44,7 +44,7 @@ destroy:
 
 # runing container in the background so we don't have to keep putting in the lastpass 2fa key
 start:
-	docker run --name $(CONTAINERNAME) -dit --rm \
+	docker run --name $(CONTAINERNAME) -dit \
 		-v $(PWD):/data \
 		-w /data \
 		-v $(HOME)/:/home/terraform/ \
