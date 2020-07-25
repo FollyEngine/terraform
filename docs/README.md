@@ -71,9 +71,13 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 
 ### Step1: configure the rpi 4 to boot from USB
 
-Use a known good sd-card to boot, then run
+Use a known good sd-card to boot, find its IP address, and then from your local computer, run
 
-`setup-usb-boot.sh`
+```
+setup-usb-boot.sh <rpi-ip-address>
+```
+
+(if necessary, you can run it from the rpi, but that doesn't setup the ssh keys)
 
 ### Step2: remove the sdcard, and put in the USB with raspberryOS on it
 

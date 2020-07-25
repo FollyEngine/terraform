@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 # This script is used to get us to the point where we can use terraform to configure the pi
 # running from USB
@@ -7,14 +7,15 @@
 IP="$1"
 
 if [[ "$IP" == "" ]]; then
-    echo "need to add IP address of the rpi you're updating"
+    echo
+    echo "need to add remote-IP address of the rpi you're updating"
+    echo
+    echo "or run the script as $0 local-rpi"
     exit
 fi
 
 if [[ "$IP" != "local-rpi" ]]; then
-        # TODO: if the script's not there, scp it, then upgrade&reboot
-
-
+    # TODO: if the script's not there, scp it, then upgrade&reboot
     # sleep 30
 
     scp ./setup-usb-boot.sh pi@${IP}:/home/pi/
@@ -27,6 +28,7 @@ fi
 
 if [[ ! -f /home/pi/.ssh/authorized_keys ]]; then
     ssh pi@${IP} mkdir -p /home/pi/.ssh/
+    # TODO: add key, don't over-write
     scp ~/.ssh/id_Apr2020.pub pi@${IP}:/home/pi/.ssh/authorized_keys
     ssh pi@${IP} sudo apt update
     ssh pi@${IP} sudo apt upgrade -yq
@@ -54,17 +56,17 @@ if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf214; then
     # BOOT_ORDER=0xf214 == usb, sd, network, repeat
 
     cat > bootconf.txt <<HERE
-    [all]
-    BOOT_UART=0
-    WAKE_ON_GPIO=1
-    POWER_OFF_ON_HALT=1
-    DHCP_TIMEOUT=45000
-    DHCP_REQ_TIMEOUT=4000
-    TFTP_FILE_TIMEOUT=30000
-    ENABLE_SELF_UPDATE=1
-    DISABLE_HDMI=0
-    BOOT_ORDER=0xf214
-    HERE
+[all]
+BOOT_UART=0
+WAKE_ON_GPIO=1
+POWER_OFF_ON_HALT=1
+DHCP_TIMEOUT=45000
+DHCP_REQ_TIMEOUT=4000
+TFTP_FILE_TIMEOUT=30000
+ENABLE_SELF_UPDATE=1
+DISABLE_HDMI=0
+BOOT_ORDER=0xf214
+HERE
 
     rpi-eeprom-config --out pieeprom-new.bin --config bootconf.txt /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
 
@@ -74,3 +76,5 @@ if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf214; then
 
     sudo halt
 fi
+
+echo "SETUP complete, the rpi should now boot from USB"
