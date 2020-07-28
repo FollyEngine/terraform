@@ -54,6 +54,12 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 
 (add step by step and photos)
 
+> NOTE: for a raspberry pi zero w, you need to edit some files in /boot - see https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing
+   wpa_supplicant.conf - wifi settings
+   config.txt - global system settings
+   ssh - an empty text file to enable ssh
+
+
 ## Software
 
 1. setup-usb-boot.sh to
