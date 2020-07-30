@@ -56,6 +56,10 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 
 ## Software
 
+0. Prepare the new USB flash drive (write script to do this):
+   1. [ ] dd the latest image
+   2. [ ] update the firmware on the image
+   3. [ ] touch /boot/ssh
 1. setup-usb-boot.sh to
    1. [x] bootstrap to booting from USB
    2. [x] set hostname
@@ -71,6 +75,12 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 6. [x] node-red
    1. [ ] work out how to install extras...
    2. [ ] work out how to backup/restore/update from git...
+   3. [ ] power on, power off, lcd on, lcd off
+      1. [ ] backlight https://www.raspberrypi.org/forums/viewtopic.php?f=108&t=120968&start=25#p834085
+      2. [ ] https://www.raspberrypi.org/forums/viewtopic.php?t=244425
+      3. [ ] sudo sh -c 'echo "1" > /sys/class/backlight/rpi_backlight/bl_power'
+      4. [ ] sudo sh -c 'echo "0" > /sys/class/backlight/rpi_backlight/bl_power'
+      5. [ ] https://github.com/DougieLawson/backlight_dimmer
 7. [ ] add info on how to use the rpi wifi
    1. [ ] using /boot
    2. [ ] using ssh
@@ -88,6 +98,9 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 13. [ ] need a password? or some way to lock the screen....
 14. [x] figure out how to get the docker provisioner to not reprovision every apply
 15. [ ] figure out why the remote-exec provisioner needs the ssh-passworkd, not a key...
+16. [ ] consider https://github.com/pokusew/nfc-pcsc/issues/43 nfc card emulation to enable esp auto-config
+    1. [ ] it'd be nice to not need a pre-determined ssid and passphrase, but to be random, and then to use an micro-nfc reader in each esp/device to find out the ssid and passphrase to use for that show
+    2. [ ] and thus to auto-register that device into that show's node-red
 
 ## and how to install the software using the terraform bits in this repo
 

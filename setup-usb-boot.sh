@@ -15,9 +15,16 @@ if [[ "$IP" == "" ]]; then
 fi
 
 if [[ "$IP" != "local-rpi" ]]; then
-    # TODO: if the script's not there, scp it, then upgrade&reboot
-    # sleep 30
+  if [[ ! -f /home/pi/.ssh/authorized_keys ]]; then
+    ssh pi@${IP} mkdir -p /home/pi/.ssh/
+    # TODO: add key, don't over-write
+    scp ~/.ssh/id_Apr2020.pub pi@${IP}:/home/pi/.ssh/authorized_keys
+    #ssh pi@${IP} sudo apt update
+    #ssh pi@${IP} sudo apt upgrade -yq
+    #ssh pi@${IP} sudo reboot
+  fi
 
+    echo "copy over setup-usb-boot.sh"
     scp ./setup-usb-boot.sh pi@${IP}:/home/pi/
 
     ssh pi@${IP} sudo ./setup-usb-boot.sh local-rpi
@@ -26,18 +33,13 @@ if [[ "$IP" != "local-rpi" ]]; then
     exit
 fi
 
-if [[ ! -f /home/pi/.ssh/authorized_keys ]]; then
-    ssh pi@${IP} mkdir -p /home/pi/.ssh/
-    # TODO: add key, don't over-write
-    scp ~/.ssh/id_Apr2020.pub pi@${IP}:/home/pi/.ssh/authorized_keys
-    ssh pi@${IP} sudo apt update
-    ssh pi@${IP} sudo apt upgrade -yq
-    ssh pi@${IP} sudo reboot
-fi
-
 if ! grep  stable /etc/default/rpi-eeprom-update; then
+    echo "Make sure we're updating to the latest "stable" firmware"
+    sudo apt update
+    sudo apt upgrade -yq
     # the real config
-    echo 'FIRMWARE_RELEASE_STATUS="stable"' >/etc/default/rpi-eeprom-update
+    sudo sh -c "echo 'FIRMWARE_RELEASE_STATUS=\"stable\"' >/etc/default/rpi-eeprom-update"
+    cat /etc/default/rpi-eeprom-update
     sudo rpi-eeprom-update -a
     sudo reboot
 fi
@@ -49,7 +51,7 @@ if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf214; then
 
     # now set USB BOOT, eject sd-card, insert usb, and reboot
 
-    #root@raspberrypi:/home/pi# rpi-eeprom-config /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
+    #root@raspberrypi:/home/pi# rpi-eeprom-config /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-07-16.bin
 
     # see https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md
     # BOOT_ORDER=0xf241 == sd, usb, network, repeat
@@ -68,14 +70,14 @@ DISABLE_HDMI=0
 BOOT_ORDER=0xf214
 HERE
 
-    rpi-eeprom-config --out pieeprom-new.bin --config bootconf.txt /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-06-15.bin
+    rpi-eeprom-config --out pieeprom-new.bin --config bootconf.txt /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-07-16.bin
 
     sudo rpi-eeprom-update -d -f ./pieeprom-new.bin
 
     echo "REMOVE the SDCARD, and install a bootable USB drive into the RPI"
     echo "and once booted, run $0 <rpi addess> again, to continue boostrap"
 
-    sudo halt
+    sudo reboot
 
     exit
 fi
@@ -106,6 +108,8 @@ if [[ "${ROOTDEV}" == "${USBDRIVE}"* ]]; then
     sudo apt-get update
     sudo apt-get install tailscale
 
+    echo "about to start tailscale, don't forget to disable key expirey for headless nodes"
+    sleep 2
     sudo tailscale up
 fi
 
