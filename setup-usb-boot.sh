@@ -44,7 +44,7 @@ if ! grep  stable /etc/default/rpi-eeprom-update; then
     sudo reboot
 fi
 
-if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf214; then
+if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf14; then
     # print eeprom state
     vcgencmd bootloader_version
     vcgencmd bootloader_config
@@ -56,6 +56,8 @@ if ! vcgencmd bootloader_config | grep BOOT_ORDER=0xf214; then
     # see https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2711_bootloader_config.md
     # BOOT_ORDER=0xf241 == sd, usb, network, repeat
     # BOOT_ORDER=0xf214 == usb, sd, network, repeat
+    # in Jul 2020, having the network boot in there often made it miss the usb?
+    # BOOT_ORDER=0xf14 == usb, sd, repeat
 
     cat > bootconf.txt <<HERE
 [all]
@@ -67,7 +69,7 @@ DHCP_REQ_TIMEOUT=4000
 TFTP_FILE_TIMEOUT=30000
 ENABLE_SELF_UPDATE=1
 DISABLE_HDMI=0
-BOOT_ORDER=0xf214
+BOOT_ORDER=0xf14
 HERE
 
     rpi-eeprom-config --out pieeprom-new.bin --config bootconf.txt /lib/firmware/raspberrypi/bootloader/stable/pieeprom-2020-07-16.bin
