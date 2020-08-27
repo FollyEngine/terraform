@@ -21,8 +21,6 @@ variable "initial_password" {
 }
 
 resource "null_resource" "sshkeys" {
-  #name = "${var.host_name}-sshkeys"
-
   connection {
     type = "ssh"    
     user = var.initial_user
@@ -36,7 +34,7 @@ resource "null_resource" "sshkeys" {
     # destination = "/home/pi/.ssh/authorized_keys"
     source      = "~/.ssh"
     destination = "/home/pi/.ssh"
-  }
+   }
 }
 
 resource "null_resource" "ssh_remember" {

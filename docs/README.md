@@ -55,10 +55,9 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 (add step by step and photos)
 
 > NOTE: for a raspberry pi zero w, you need to edit some files in /boot - see https://learn.adafruit.com/raspberry-pi-zero-creation/text-file-editing
-   wpa_supplicant.conf - wifi settings
-   config.txt - global system settings
-   ssh - an empty text file to enable ssh
-
+> wpa_supplicant.conf - wifi settings
+> config.txt - global system settings
+> ssh - an empty text file to enable ssh
 
 ## Software
 
@@ -74,12 +73,14 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 3. [x] Unifi controller in a container
    1. [ ] automate the setup of the unifi controller - I'm doing it by hand atm (Folly, Fight)
 4. [x] pi-hole / dnsmasq
-   1. [1] fix the eth0-static-ip remote-exec
-   2. [ ] figure out what mqtt ip address the esp's are set to
-   3. [ ] add NAT rules for wan0 (telstra dongle) and rpi wifi
+   1. [x] fix the eth0-static-ip remote-exec
+   2. [ ] move the lighttp away from port 80
+   3. [ ] figure out what mqtt ip address the esp's are set to
+   4. [ ] add NAT rules for wan0 (telstra dongle) and rpi wifi
 5. [x] mqtt
 6. [x] node-red
    1. [ ] work out how to install extras...
+      1. [ ] https://flows.nodered.org/node/node-red-contrib-flow-manager
    2. [ ] work out how to backup/restore/update from git...
    3. [ ] power on, power off, lcd on, lcd off
       1. [ ] backlight https://www.raspberrypi.org/forums/viewtopic.php?f=108&t=120968&start=25#p834085
@@ -87,6 +88,7 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
       3. [ ] sudo sh -c 'echo "1" > /sys/class/backlight/rpi_backlight/bl_power'
       4. [ ] sudo sh -c 'echo "0" > /sys/class/backlight/rpi_backlight/bl_power'
       5. [ ] https://github.com/DougieLawson/backlight_dimmer
+      6. [ ] the pi node-red is limited - its not used to develop, and so initially doesn't control the devices
 7. [ ] add info on how to use the rpi wifi
    1. [ ] using /boot
    2. [ ] using ssh
@@ -94,17 +96,19 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 8. [ ] some kind of database that can cope with power outages
    1. https://forum.cockroachlabs.com/t/cockroach-on-the-raspbery-pi-3-64-bit/1246
    2. https://www.raspberrypi.org/forums/viewtopic.php?t=200748
-9. [ ] logging / monitoring?
-10. [ ] something to allow edge remote mgmt
-11. [ ] portainer
-12. [x] kiosk, autologin and displaying it on the screen
+   3. people pointed out ... sqlite...
+9. Auto-dns using the tailscale ip's
+10. [ ] logging / monitoring?
+11. [ ] something to allow edge remote mgmt
+12. [ ] portainer
+13. [x] kiosk, autologin and displaying it on the screen
     1. [ ] brightness
     2. [ ] screen on and off control
     3. [ ]
-13. [ ] need a password? or some way to lock the screen....
-14. [x] figure out how to get the docker provisioner to not reprovision every apply
-15. [ ] figure out why the remote-exec provisioner needs the ssh-passworkd, not a key...
-16. [ ] consider https://github.com/pokusew/nfc-pcsc/issues/43 nfc card emulation to enable esp auto-config
+14. [ ] need a password? or some way to lock the screen....
+15. [x] figure out how to get the docker provisioner to not reprovision every apply
+16. [ ] figure out why the remote-exec provisioner needs the ssh-passworkd, not a key...
+17. [ ] consider https://github.com/pokusew/nfc-pcsc/issues/43 nfc card emulation to enable esp auto-config
     1. [ ] it'd be nice to not need a pre-determined ssid and passphrase, but to be random, and then to use an micro-nfc reader in each esp/device to find out the ssid and passphrase to use for that show
     2. [ ] and thus to auto-register that device into that show's node-red
 

@@ -30,7 +30,7 @@ resource "null_resource" "dockerd" {
     inline = [
       "sudo apt update",
       "sudo apt upgrade -yq",
-      "sudo apt install vim-tiny curl",
+      "sudo apt install vim-tiny curl git",
       // don't run it again - i guess each of these should be separate resources..
       "if ! which docker; then curl https://get.docker.com | sh; fi",
       "sudo usermod -aG docker pi",
