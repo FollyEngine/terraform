@@ -31,6 +31,16 @@ resource "digitalocean_record" "host" {
   ttl    = 60
 }
 
+# Add a record to the domain
+resource "digitalocean_record" "wildcard" {
+  domain = data.digitalocean_domain.follysite.name
+  type   = "A"
+  name  = "*.${var.host_name}"
+  value  = var.ip_address
+  ttl    = 60
+}
+
+
 # Output the FQDN for the record
 output "fqdn" {
   value = digitalocean_record.host.fqdn

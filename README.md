@@ -4,12 +4,16 @@ Use Terraform to setup the RPi controller for FollyEngine
 
 will result in:
 * [ ] folly user setup
+* [ ] pi user's password changed
+* [x] <hostname>.folly.site DNS and *.<hostname>.folly.site DNS setup to point to tailscale IP
 * [x] Docker installed and running
 * [x] Tailscale installed and configured
 * [ ] node-red installed
 * [x] Unifi controller configured with initial Folly WiFi
+* [ ] caddy with docker-proxy-plugin installed
+  * [ ] set virtual.port for node-red, unifi, and pihole, and set them up nicely
 * [x] the 7inch screen working
-* [ ] secrets, passords etc from Lastpass
+* [x] secrets, passwords etc from Lastpass
 * [ ] terraform state stored in the terraform cloud
 
 ## How to use
