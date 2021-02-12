@@ -20,7 +20,7 @@ variable "initial_password" {
 }
 
 provider "docker" {
-  host = "ssh://${var.initial_user}@${var.ip_address}:22"
+  host = "ssh://${var.initial_user}@${var.host_name}:22"
 }
 
 data "docker_registry_image" "pihole" {
@@ -29,7 +29,7 @@ data "docker_registry_image" "pihole" {
 
 resource "docker_image" "pihole" {
   name          = data.docker_registry_image.pihole.name
-  pull_triggers = ["${data.docker_registry_image.pihole.sha256_digest}"]
+  pull_triggers = [data.docker_registry_image.pihole.sha256_digest]
 }
 
 #https://hub.docker.com/r/pihole/pihole/

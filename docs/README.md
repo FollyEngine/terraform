@@ -82,11 +82,11 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
    1. [ ] work out how to install extras...
       1. [ ] https://flows.nodered.org/node/node-red-contrib-flow-manager
    2. [ ] work out how to backup/restore/update from git...
-   3. [ ] power on, power off, lcd on, lcd off
+   3. [x] power on, power off, lcd on, lcd off
       1. [ ] backlight https://www.raspberrypi.org/forums/viewtopic.php?f=108&t=120968&start=25#p834085
       2. [ ] https://www.raspberrypi.org/forums/viewtopic.php?t=244425
-      3. [ ] sudo sh -c 'echo "1" > /sys/class/backlight/rpi_backlight/bl_power'
-      4. [ ] sudo sh -c 'echo "0" > /sys/class/backlight/rpi_backlight/bl_power'
+      3. [x] sudo sh -c 'echo "1" > /sys/class/backlight/rpi_backlight/bl_power'
+      4. [x] sudo sh -c 'echo "0" > /sys/class/backlight/rpi_backlight/bl_power'
       5. [ ] https://github.com/DougieLawson/backlight_dimmer
       6. [ ] the pi node-red is limited - its not used to develop, and so initially doesn't control the devices
 7. [ ] add info on how to use the rpi wifi
@@ -103,7 +103,7 @@ somewhere in the order of (\$300) each, plus extra meshAP's, network switch etc
 12. [ ] portainer
 13. [x] kiosk, autologin and displaying it on the screen
     1. [ ] brightness
-    2. [ ] screen on and off control
+    2. [x] screen on and off control
     3. [ ]
 14. [ ] need a password? or some way to lock the screen....
 15. [x] figure out how to get the docker provisioner to not reprovision every apply

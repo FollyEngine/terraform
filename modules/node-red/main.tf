@@ -20,7 +20,7 @@ variable "initial_password" {
 }
 
 provider "docker" {
-  host = "ssh://${var.initial_user}@${var.ip_address}:22"
+  host = "ssh://${var.initial_user}@${var.host_name}:22"
 }
 
 data "docker_registry_image" "nodered" {
@@ -30,7 +30,7 @@ data "docker_registry_image" "nodered" {
 
 resource "docker_image" "nodered" {
   name          = data.docker_registry_image.nodered.name
-  pull_triggers = ["${data.docker_registry_image.nodered.sha256_digest}"]
+  pull_triggers = [data.docker_registry_image.nodered.sha256_digest]
 }
 
 // https://nodered.org/docs/getting-started/docker

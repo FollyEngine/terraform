@@ -29,6 +29,15 @@ module "sshkeys" {
   initial_password = var.initial_password
 }
 
+module "dns" {
+  source = "../../modules/dns"
+
+  host_name = var.host_name
+  ip_address = var.ip_address
+}
+
+
+
 module "dockerd" {
   source = "../../modules/dockerd"
 

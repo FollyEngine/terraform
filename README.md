@@ -4,11 +4,11 @@ Use Terraform to setup the RPi controller for FollyEngine
 
 will result in:
 * [ ] folly user setup
-* [ ] Docker installed and running
-* [ ] Wireguard installed and configured
+* [x] Docker installed and running
+* [x] Tailscale installed and configured
 * [ ] node-red installed
-* [ ] Unifi controller configured with initial Folly WiFi
-* [ ] the 7inch screen working
+* [x] Unifi controller configured with initial Folly WiFi
+* [x] the 7inch screen working
 * [ ] secrets, passords etc from Lastpass
 * [ ] terraform state stored in the terraform cloud
 
@@ -31,9 +31,10 @@ will result in:
    * remove sdcard, and put in pi & boot...
    * find ip address, then `ssh pi@<ip address>`, default password ~ `raspberry`
 2. Boot, and get IP Address
-3. `make init`
-4. `make plan`
-5. `make apply`
+3. `make start`
+4. `make init`
+5. `make plan`
+6. `make apply`
 
 
 ## Curiosities

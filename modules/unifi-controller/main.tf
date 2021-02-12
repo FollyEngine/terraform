@@ -15,7 +15,7 @@ variable "initial_user" {
 }
 
 provider "docker" {
-  host = "ssh://${var.initial_user}@${var.ip_address}:22"
+  host = "ssh://${var.initial_user}@${var.host_name}:22"
 }
 
 
@@ -31,7 +31,7 @@ data "docker_registry_image" "unifi" {
 
 resource "docker_image" "unifi" {
   name          = data.docker_registry_image.unifi.name
-  pull_triggers = ["${data.docker_registry_image.unifi.sha256_digest}"]
+  pull_triggers = [data.docker_registry_image.unifi.sha256_digest]
 }
 
 # https://hub.docker.com/r/jacobalberty/unifi/tags

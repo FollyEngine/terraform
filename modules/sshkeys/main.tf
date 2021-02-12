@@ -28,6 +28,7 @@ resource "null_resource" "sshkeys" {
     host = var.ip_address
   }
 
+# TODO: convert to putting the keys in my github account into the auth'd_keys?
   provisioner "file" {
     #TODO: this is an aweful workaround to https://github.com/hashicorp/terraform/issues/16330
     # source      = "~/.ssh/id_rsa.pub"
