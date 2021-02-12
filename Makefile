@@ -2,8 +2,7 @@
 # hashicorp/terraform:light
 TERRAFORMIMAGE=follyengine/terraform
 CONTAINERNAME=folly-terraform
-#TERRAFORMTAG=0.14.5
-TERRAFORMTAG=0.13.6
+TERRAFORMTAG=0.14.5
 
 plan:
 	echo "SHOW terraform plan"
