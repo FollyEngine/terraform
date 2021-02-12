@@ -15,6 +15,8 @@ will result in:
 * [x] the 7inch screen working
 * [x] secrets, passwords etc from Lastpass
 * [ ] terraform state stored in the terraform cloud
+  * [ ] separate out each host into its own workspace
+  * [ ] figure out how to make seeing the state&plan for each obvious - some admin grafana vis?
 
 ## How to use
 
