@@ -1,8 +1,8 @@
-#module "sven-screen1" {
-  #source = "./computers/sven-screen1"
+#module "follybase1" {
+  #source = "./computers/follybase1"
 locals {
-  host_name = "sven-screen1"
-  ip_address = "100.88.185.82"
+  host_name = "follybase1"
+  ip_address = "100.101.66.56"
   initial_user = "pi"
   initial_password = "raspberry"
 }
@@ -13,27 +13,27 @@ terraform {
         organization = "follyengine"
         workspaces {
             #set from terraform init -backend-config=state.hcl
-            name = "sven-screen1"
+            name = "follybase1"
             #can set a prefix="something"
         }
     }
   required_providers {
-    lastpass = {
-      source = "nrkno/lastpass"
-      version = "0.5.2"
-    }
+  #   lastpass = {
+  #     source = "nrkno/lastpass"
+  #     version = "0.5.2"
+  #   }
   docker = {
       source = "kreuzwerker/docker"
       version = "2.11.0"
     }
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-      version = "2.5.1"
-    }
-    null = {
-      source = "hashicorp/null"
-      version = "3.0.0"
-    }
+  #   digitalocean = {
+  #     source = "digitalocean/digitalocean"
+  #     version = "2.5.1"
+  #   }
+  #   null = {
+  #     source = "hashicorp/null"
+  #     version = "3.0.0"
+  #   }
   }
 
   required_version = ">= 0.13"
@@ -55,14 +55,16 @@ module "dns" {
   ip_address = local.ip_address
 }
 
-
-
 module "dockerd" {
   source = "../../modules/dockerd"
 
   host_name = local.host_name
   ip_address = local.ip_address
   initial_user = local.initial_user
+}
+
+provider "docker" {
+  host = "ssh://${local.initial_user}@${local.host_name}:22"
 }
 
 # see https://100.88.185.82:8443
@@ -72,6 +74,13 @@ module "unifi-controller" {
   host_name = local.host_name
   ip_address = local.ip_address
   initial_user = local.initial_user
+
+  depends_on = [
+    module.dockerd,
+  ]
+  providers = {
+    docker = docker
+  }
 }
 
 module "pihole" {
@@ -81,6 +90,12 @@ module "pihole" {
   ip_address = local.ip_address
   initial_user = local.initial_user
   initial_password = local.initial_password
+  depends_on = [
+    module.dockerd,
+  ]
+  providers = {
+    docker = docker
+  }
 }
 
 module "mqtt" {
@@ -99,6 +114,12 @@ module "node-red" {
   ip_address = local.ip_address
   initial_user = local.initial_user
   initial_password = local.initial_password
+  depends_on = [
+    module.dockerd,
+  ]
+  providers = {
+    docker = docker
+  }
 }
 
 // Kiosk mode - for pi's with screens

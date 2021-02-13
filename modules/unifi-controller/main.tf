@@ -14,11 +14,6 @@ variable "initial_user" {
   type        = string
 }
 
-provider "docker" {
-  host = "ssh://${var.initial_user}@${var.host_name}:22"
-}
-
-
 # set-inform http://non-tailscale_ip:8080/inform
 
 

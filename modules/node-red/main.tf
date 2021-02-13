@@ -19,10 +19,6 @@ variable "initial_password" {
   type        = string
 }
 
-provider "docker" {
-  host = "ssh://${var.initial_user}@${var.host_name}:22"
-}
-
 data "docker_registry_image" "nodered" {
   //name = "nodered/node-red"
   name = "follyengine/nodered:latest"

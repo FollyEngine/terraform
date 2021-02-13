@@ -8,10 +8,17 @@ will result in:
 * [x] <hostname>.folly.site DNS and *.<hostname>.folly.site DNS setup to point to tailscale IP
 * [x] Docker installed and running
 * [x] Tailscale installed and configured
-* [ ] node-red installed
-* [x] Unifi controller configured with initial Folly WiFi
+* [x] mqtt server (on host)
+* [x] node-red installed (in container) port 1880
+  * [ ] replace port publishing with caddy
+* [x] pihole instaled (in container) port 80
+  * [ ] need to put the website on a different port, or work out how to do the DHCP server using caddy?
+* [x] Unifi controller configured with initial Folly WiFi (in container) port 8080
+  * [ ] move to caddy
+  * [ ] figure out auth
 * [ ] caddy with docker-proxy-plugin installed
   * [ ] set virtual.port for node-red, unifi, and pihole, and set them up nicely
+  * [ ] see if we can disable app auth and use caddy-auth
 * [x] the 7inch screen working
 * [x] secrets, passwords etc from Lastpass
 * [ ] terraform state stored in the terraform cloud
