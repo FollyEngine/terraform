@@ -21,7 +21,8 @@ variable "initial_user" {
 #           -v /home/pi/unifi:/unifi --name unifi jacobalberty/unifi:5.12.66-arm32v7"
 
 data "docker_registry_image" "unifi" {
-  name = "jacobalberty/unifi:5.13.32-arm32v7"
+#  name = "jacobalberty/unifi:5.13.32-arm32v7"
+  name = "jacobalberty/unifi:latest"
 }
 
 resource "docker_image" "unifi" {
@@ -56,3 +57,37 @@ resource "docker_container" "unifi" {
             timeout      = "0s" 
     }
 }
+
+//$ lpass show 2353786631527707497
+//follyengine-wifi [id: 2353786631527707497]
+//Username: Folly
+//Password: 
+data "lastpass_secret" "folly_wifi" {
+   id = "2353786631527707497"
+}
+
+// https://registry.terraform.io/providers/paultyng/unifi/latest/docs
+provider "unifi" {
+  username = data.lastpass_secret.folly_wifi.username # optionally use UNIFI_USERNAME env var
+  password = data.lastpass_secret.folly_wifi.password # optionally use UNIFI_PASSWORD env var
+  api_url  = "https://${var.ip_address}:8443"  # optionally use UNIFI_API env var
+
+  # you may need to allow insecure TLS communications unless you have configured
+  # certificates for your controller
+  allow_insecure = true //var.insecure # optionally use UNIFI_INSECURE env var
+
+  # if you are not configuring the default site, you can change the site
+  # site = "foo" or optionally use UNIFI_SITE env var
+}
+
+data "unifi_user_group" "default" {
+}
+
+# resource "unifi_wlan" "wifi" {
+#   name          = data.lastpass_secret.folly_wifi.username
+#   //vlan_id       = 10
+#   passphrase    = data.lastpass_secret.folly_wifi.password
+#   user_group_id = data.unifi_user_group.default.id
+#   security      = "wpapsk"
+#   ap_group_ids = []
+# }

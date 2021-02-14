@@ -86,9 +86,9 @@ module "unifi-controller" {
   ip_address = local.ip_address
   initial_user = local.initial_user
 
-  depends_on = [
-    module.dockerd,
-  ]
+  # depends_on = [
+  #   module.dockerd,
+  # ]
   providers = {
     docker = docker
   }

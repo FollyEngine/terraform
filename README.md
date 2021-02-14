@@ -14,6 +14,8 @@ will result in:
 * [x] pihole instaled (in container) port 80
   * [ ] need to put the website on a different port, or work out how to do the DHCP server using caddy?
 * [x] Unifi controller configured with initial Folly WiFi (in container) port 8080
+  * [ ] Auto configure it with password, and Folly WIFI network
+    * sadly, needs manual intervention
   * [ ] move to caddy
   * [ ] figure out auth
 * [ ] caddy with docker-proxy-plugin installed
@@ -48,6 +50,8 @@ will result in:
 4. `make init`
 5. `make plan`
 6. `make apply`
+7. Then attach the unifi AP to the pi built in network port, and something elsewhere to get internet (could also cfg the pi's wifi..)
+   1. ...
 
 
 ## Curiosities
