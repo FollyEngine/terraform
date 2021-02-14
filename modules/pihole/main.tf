@@ -41,7 +41,7 @@ resource "docker_container" "pihole" {
     "TZ=Australia/Brisbane",
     "VIRTUAL_HOST=pi.hole",
     "PROXY_LOCATION=pi.hole",
-    "ServerIP=100.88.185.82",
+    "ServerIP=${var.ip_address}",
     
     "WEBPASSWORD=${var.initial_password}",
     "DNS1=127.0.0.1",
