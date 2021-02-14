@@ -37,9 +37,10 @@ cloud-init-key:
 
 apply: cloud-init-key .terraform
 	# TODO: need to set STACKDOMAIN, and should use it in terraform...
+	# Ensure Docker is installed first
+	docker exec -it $(CONTAINERNAME) terraform apply -target=module.dockerd computers/follybase1/
+	# then run the rest
 	docker exec -it $(CONTAINERNAME) terraform apply computers/$(COMPUTER)/
-	# TODO: wait for cloud-init to finish (docker swarm up, with the right number of nodes)
-	# TODO: docker ona create --branch master -stack seaweedfs --stack traefik --stack prometheus --stack keycloak --stack cronicle swarm-infra
 
 show: .terraform
 	docker exec -it $(CONTAINERNAME) terraform show

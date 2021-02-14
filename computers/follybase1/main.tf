@@ -61,10 +61,21 @@ module "dockerd" {
   host_name = local.host_name
   ip_address = local.ip_address
   initial_user = local.initial_user
+  initial_password = local.initial_password
+}
+
+resource "local_file" "dockersock" {
+  # HACK: depends_on for the helm provider
+  # Passing provider configuration value via a local_file
+  depends_on = [module.dockerd]
+  content    = module.dockerd.dockersock
+  filename   = "./terraform.tfstate.dockerd.dockersock"
 }
 
 provider "docker" {
-  host = "ssh://${local.initial_user}@${local.host_name}:22"
+//  host = "ssh://${local.initial_user}@${local.host_name}:22"
+  //host = module.dockerd.dockersock
+  host = local_file.dockersock.content
 }
 
 # see https://100.88.185.82:8443
@@ -100,31 +111,6 @@ module "pihole" {
 
 module "mqtt" {
   source = "../../modules/mqtt"
-
-  host_name = local.host_name
-  ip_address = local.ip_address
-  initial_user = local.initial_user
-  initial_password = local.initial_password
-}
-
-module "node-red" {
-  source = "../../modules/node-red"
-
-  host_name = local.host_name
-  ip_address = local.ip_address
-  initial_user = local.initial_user
-  initial_password = local.initial_password
-  depends_on = [
-    module.dockerd,
-  ]
-  providers = {
-    docker = docker
-  }
-}
-
-// Kiosk mode - for pi's with screens
-module "kiosk" {
-  source = "../../modules/kiosk"
 
   host_name = local.host_name
   ip_address = local.ip_address
