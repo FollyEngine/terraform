@@ -55,6 +55,15 @@ module "dns" {
   ip_address = local.ip_address
 }
 
+module "network" {
+  source = "../../modules/network"
+
+  host_name = local.host_name
+  ip_address = local.ip_address
+  initial_user = local.initial_user
+  initial_password = local.initial_password
+}
+
 module "dockerd" {
   source = "../../modules/dockerd"
 

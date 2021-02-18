@@ -42,11 +42,13 @@ resource "docker_container" "nodered" {
     ip = "0.0.0.0"
     protocol = "tcp"
   }
-  mounts {
-      target = "/data/"
-      source = "nodered_data"
-      type = "volume"
-  }
+  # Don't persist the data, this will allow us to update the "management UI"
+  # TODO: figure out how to do this optionally
+  # mounts {
+  #     target = "/data/"
+  #     source = "nodered_data"
+  #     type = "volume"
+  # }
   mounts {
       target = "/etc/wpa_supplicant"
       source = "/etc/wpa_supplicant"
