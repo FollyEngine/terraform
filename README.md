@@ -6,12 +6,13 @@ will result in:
 * [ ] folly user setup
 * [ ] pi user's password changed
 * [x] <hostname>.folly.site DNS and *.<hostname>.folly.site DNS setup to point to tailscale IP
+* [x] add config to enable wifi
 * [x] Docker installed and running
 * [x] Tailscale installed and configured
 * [x] mqtt server (on host)
 * [x] node-red installed (in container) port 1880
   * [ ] replace port publishing with caddy
-  * [ ] install basic monitoring and wifi setting flows for node-red
+  * [x] install basic monitoring and wifi setting flows for node-red
 * [x] pihole instaled (in container) port 80
   * [ ] blah - no api / settings, need to use /etc/pihole/setupVars.conf ?
   * [ ] til then, need to hand configure DHCP - 10.11.11.100 -> 10.11.11.200, router 10.11.11.1
@@ -26,7 +27,7 @@ will result in:
   * [ ] see if we can disable app auth and use caddy-auth
 * [x] the 7inch screen working
 * [x] secrets, passwords etc from Lastpass
-* [ ] terraform state stored in the terraform cloud
+* [x] terraform state stored in the terraform cloud
   * [ ] separate out each host into its own workspace
   * [ ] figure out how to make seeing the state&plan for each obvious - some admin grafana vis?
 
