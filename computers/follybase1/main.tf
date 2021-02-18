@@ -118,6 +118,16 @@ module "mqtt" {
   initial_password = local.initial_password
 }
 
+module "node-red" {
+  source = "../../modules/node-red"
+
+  host_name = local.host_name
+  ip_address = local.ip_address
+  initial_user = local.initial_user
+  initial_password = local.initial_password
+}
+
+
 resource "null_resource" "eth0-static-ip" {
   connection {
     type = "ssh"    

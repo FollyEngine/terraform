@@ -11,6 +11,7 @@ will result in:
 * [x] mqtt server (on host)
 * [x] node-red installed (in container) port 1880
   * [ ] replace port publishing with caddy
+  * [ ] install basic monitoring and wifi setting flows for node-red
 * [x] pihole instaled (in container) port 80
   * [ ] blah - no api / settings, need to use /etc/pihole/setupVars.conf ?
   * [ ] til then, need to hand configure DHCP - 10.11.11.100 -> 10.11.11.200, router 10.11.11.1
