@@ -57,6 +57,22 @@ will result in:
 7. Then attach the unifi AP to the pi built in network port, and something elsewhere to get internet (could also cfg the pi's wifi..)
    1. ...
 
+## Result
+
+you should end up with a working rpi+unifi mesh that can be taken anywhere
+
+URLs:
+
+* node-red dashboard with login
+  * (when on wireguard) https://hostname.folly.site
+  * (when on folly network) https://hostname.local
+* unifi dashboard
+  * (when on wireguard) https://unifi.hostname.folly.site
+  * (when on folly network) https://unifi.hostname.local
+* pihole for dhcp and dns
+  * (when on wireguard) https://dns.hostname.folly.site
+  * (when on folly network) https://dns.hostname.local
+
 
 ## Curiosities
 

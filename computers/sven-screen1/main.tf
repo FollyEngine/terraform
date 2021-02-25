@@ -63,6 +63,7 @@ module "dockerd" {
   host_name = local.host_name
   ip_address = local.ip_address
   initial_user = local.initial_user
+  initial_password = local.initial_password
 }
 
 # see https://100.88.185.82:8443
