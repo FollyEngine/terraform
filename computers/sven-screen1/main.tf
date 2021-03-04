@@ -26,14 +26,14 @@ terraform {
       source = "kreuzwerker/docker"
       version = "2.11.0"
     }
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-      version = "2.5.1"
-    }
-    null = {
-      source = "hashicorp/null"
-      version = "3.0.0"
-    }
+  digitalocean = {
+    source = "digitalocean/digitalocean"
+    version = "2.5.1"
+  }
+  null = {
+    source = "hashicorp/null"
+    version = "3.0.0"
+  }
   }
 
   required_version = ">= 0.13"
@@ -65,6 +65,20 @@ module "dockerd" {
   initial_user = local.initial_user
   initial_password = local.initial_password
 }
+resource "local_file" "dockersock" {
+  # HACK: depends_on for the helm provider
+  # Passing provider configuration value via a local_file
+  depends_on = [module.dockerd]
+  content    = module.dockerd.dockersock
+  filename   = "./terraform.tfstate.dockerd.dockersock"
+}
+
+provider "docker" {
+//  host = "ssh://${local.initial_user}@${local.host_name}:22"
+  //host = module.dockerd.dockersock
+  host = local_file.dockersock.content
+}
+
 
 # see https://100.88.185.82:8443
 module "unifi-controller" {
@@ -73,6 +87,9 @@ module "unifi-controller" {
   host_name = local.host_name
   ip_address = local.ip_address
   initial_user = local.initial_user
+  providers = {
+    docker = docker
+  }
 }
 
 module "pihole" {
@@ -82,6 +99,9 @@ module "pihole" {
   ip_address = local.ip_address
   initial_user = local.initial_user
   initial_password = local.initial_password
+  providers = {
+    docker = docker
+  }
 }
 
 module "mqtt" {

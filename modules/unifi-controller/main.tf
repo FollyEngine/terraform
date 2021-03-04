@@ -66,8 +66,12 @@ data "lastpass_secret" "folly_wifi" {
    id = "2353786631527707497"
 }
 
+## TODO: the following can only be used _after_ the unifi container exists, because terraform is missing a depends_on (not that that fixes it either, but \o/)
 // https://registry.terraform.io/providers/paultyng/unifi/latest/docs
 provider "unifi" {
+  #depends_on = [docker_container.unifi ]
+
+
   username = data.lastpass_secret.folly_wifi.username # optionally use UNIFI_USERNAME env var
   password = data.lastpass_secret.folly_wifi.password # optionally use UNIFI_PASSWORD env var
   api_url  = "https://${var.ip_address}:8443"  # optionally use UNIFI_API env var

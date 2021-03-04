@@ -51,3 +51,42 @@ output "dockersock" {
     null_resource.dockerd
   ]
 }
+
+resource "null_resource" "docker_daemon_json" {
+  connection {
+    type = "ssh"    
+    user = var.initial_user
+    host = var.host_name
+    password = var.initial_password
+  }
+
+  # https://github.com/Christian-Me/node-red-contrib-home/tree/master/Mosquitto
+  provisioner "file" {
+    content     = <<EOT
+{
+  "live-restore": true
+}
+EOT
+    #yeah, if only there was a "sudo flag"
+    destination = "/tmp/daemon.json"
+  }
+}
+
+resource "null_resource" "install_docker_daemon_json" {
+  depends_on = [null_resource.docker_daemon_json ]
+
+  connection {
+    type = "ssh"    
+    user = var.initial_user
+    host = var.host_name
+    password = var.initial_password
+  }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo mkdir -p /etc/docker/",
+      "sudo cp /tmp/daemon.json /etc/docker/daemon.json",
+      "sudo systemctl daemon-reload",
+      "sudo kill -SIGHUP $(pidof dockerd)"
+    ]
+  }
+}

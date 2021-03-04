@@ -8,8 +8,10 @@ will result in:
 * [x] <hostname>.folly.site DNS and *.<hostname>.folly.site DNS setup to point to tailscale IP
 * [x] add config to enable wifi
 * [x] Docker installed and running
+  * [x] add the auto-restart daemon.json
 * [x] Tailscale installed and configured
 * [x] mqtt server (on host)
+* [ ] add mqtt dns entry to pihole so the devices can use mqtt!
 * [x] node-red installed (in container) port 1880
   * [ ] replace port publishing with caddy
   * [x] install basic monitoring and wifi setting flows for node-red

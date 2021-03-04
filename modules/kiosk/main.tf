@@ -31,7 +31,7 @@ resource "null_resource" "kiosk-service" {
   //https://die-antwort.eu/techblog/2017-12-setup-raspberry-pi-for-kiosk-mode/
   //https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup
   provisioner "file" {
-    source      = "modules/kiosk/openbox-autostart"
+    source      = "../../modules/kiosk/openbox-autostart"
     destination = "~/openbox-autostart"
     #destination = "/etc/xdg/openbox/autostart"
   }
