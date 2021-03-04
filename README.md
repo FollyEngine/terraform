@@ -15,10 +15,10 @@ will result in:
   * [ ] replace port publishing with caddy
   * [x] install basic monitoring and wifi setting flows for node-red
 * [x] pihole instaled (in container) port 80
-  * [ ] blah - no api / settings, need to use /etc/pihole/setupVars.conf ?
+  * [x] blah - no api / settings, need to use /etc/pihole/setupVars.conf ?
   * [x] add mqtt dns entry to pihole so the devices can use mqtt!
-  * [ ] til then, need to hand configure DHCP - 10.11.11.100 -> 10.11.11.200, router 10.11.11.1
-  * [ ] need to put the website on a different port, or work out how to do the DHCP server using caddy?
+  * [x] til then, need to hand configure DHCP - 10.11.11.100 -> 10.11.11.200, router 10.11.11.1
+  * [x] need to put the website on a different port (8888), or work out how to do the DHCP server using caddy?
 * [x] Unifi controller configured with initial Folly WiFi (in container) port 8080
   * [ ] Auto configure it with password, and Folly WIFI network
     * sadly, needs manual intervention

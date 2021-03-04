@@ -66,32 +66,33 @@ data "lastpass_secret" "folly_wifi" {
    id = "2353786631527707497"
 }
 
-## TODO: the following can only be used _after_ the unifi container exists, because terraform is missing a depends_on (not that that fixes it either, but \o/)
-// https://registry.terraform.io/providers/paultyng/unifi/latest/docs
-provider "unifi" {
-  #depends_on = [docker_container.unifi ]
+# ## TODO: the following can only be used _after_ the unifi container exists, because terraform is missing a depends_on (not that that fixes it either, but \o/)
+# ## TODO: also need to setup the admin user, and connect a device manually
+# // https://registry.terraform.io/providers/paultyng/unifi/latest/docs
+# provider "unifi" {
+#   #depends_on = [docker_container.unifi ]
 
 
-  username = data.lastpass_secret.folly_wifi.username # optionally use UNIFI_USERNAME env var
-  password = data.lastpass_secret.folly_wifi.password # optionally use UNIFI_PASSWORD env var
-  api_url  = "https://${var.ip_address}:8443"  # optionally use UNIFI_API env var
+#   username = data.lastpass_secret.folly_wifi.username # optionally use UNIFI_USERNAME env var
+#   password = data.lastpass_secret.folly_wifi.password # optionally use UNIFI_PASSWORD env var
+#   api_url  = "https://${var.ip_address}:8443"  # optionally use UNIFI_API env var
 
-  # you may need to allow insecure TLS communications unless you have configured
-  # certificates for your controller
-  allow_insecure = true //var.insecure # optionally use UNIFI_INSECURE env var
+#   # you may need to allow insecure TLS communications unless you have configured
+#   # certificates for your controller
+#   allow_insecure = true //var.insecure # optionally use UNIFI_INSECURE env var
 
-  # if you are not configuring the default site, you can change the site
-  # site = "foo" or optionally use UNIFI_SITE env var
-}
-
-data "unifi_user_group" "default" {
-}
-
-# resource "unifi_wlan" "wifi" {
-#   name          = data.lastpass_secret.folly_wifi.username
-#   //vlan_id       = 10
-#   passphrase    = data.lastpass_secret.folly_wifi.password
-#   user_group_id = data.unifi_user_group.default.id
-#   security      = "wpapsk"
-#   ap_group_ids = []
+#   # if you are not configuring the default site, you can change the site
+#   # site = "foo" or optionally use UNIFI_SITE env var
 # }
+
+# data "unifi_user_group" "default" {
+# }
+
+# # resource "unifi_wlan" "wifi" {
+# #   name          = data.lastpass_secret.folly_wifi.username
+# #   //vlan_id       = 10
+# #   passphrase    = data.lastpass_secret.folly_wifi.password
+# #   user_group_id = data.unifi_user_group.default.id
+# #   security      = "wpapsk"
+# #   ap_group_ids = []
+# # }

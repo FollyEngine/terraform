@@ -38,6 +38,7 @@ resource "docker_container" "pihole" {
   network_mode = "host"     // simplifies adoption
 
   env = [
+    "WEB_PORT=8888",
     "TZ=Australia/Brisbane",
     "VIRTUAL_HOST=pi.hole",
     "PROXY_LOCATION=pi.hole",
@@ -101,6 +102,58 @@ resource "null_resource" "pihole_custom_dns" {
         return
       fi
       docker exec -it pihole sh -c 'echo "10.11.11.1 mqtt" >> /etc/pihole/custom.list'
+EOF
+    ]
+  }
+}
+
+# resource "null_resource" "pihole_setupvars_conf" {
+#   depends_on = [null_resource.mqtt ]
+#   connection {
+#     type = "ssh"    
+#     user = var.initial_user
+#     host = var.ip_address
+#     password = var.initial_password
+#   }
+
+#   provisioner "file" {
+#     content     = <<EOT
+# EOT
+#     #yeah, if only there was a "sudo flag"
+#     #destination = "/etc/mosquitto/conf.d/homie.conf"
+#     destination = "/tmp/setupVars.conf"
+#   }
+# }
+
+resource "null_resource" "pihole_setupvars_conf_install1" {
+  #depends_on = [null_resource.pihole_setupvars_conf ]
+  depends_on = [ docker_container.pihole ]
+
+  connection {
+    type = "ssh"    
+    user = var.initial_user
+    host = var.ip_address
+    password = var.initial_password
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      <<-EOF
+      if docker exec -it pihole grep "DHCP" /etc/pihole/setupVars.conf ; then
+        return
+      fi
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_ACTIVE=true" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_START=10.11.11.100" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_END=10.11.11.200" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_ROUTER=10.11.11.1" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_LEASETIME=24" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "PIHOLE_DOMAIN=folly.site" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_IPv6=false" >> /etc/pihole/setupVars.conf'
+      docker exec -it -e SETUP_CONF pihole sh -c 'echo "DHCP_rapid_commit=false" >> /etc/pihole/setupVars.conf'
+
+      #docker exec -it -e SETUP_CONF pihole sh -c 'echo "" >> /etc/pihole/setupVars.conf'
+      # TODO: need to send HUP to https://docs.pi-hole.net/ftldns/signals/
+      docker restart pihole
 EOF
     ]
   }
