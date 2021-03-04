@@ -11,12 +11,12 @@ will result in:
   * [x] add the auto-restart daemon.json
 * [x] Tailscale installed and configured
 * [x] mqtt server (on host)
-* [ ] add mqtt dns entry to pihole so the devices can use mqtt!
 * [x] node-red installed (in container) port 1880
   * [ ] replace port publishing with caddy
   * [x] install basic monitoring and wifi setting flows for node-red
 * [x] pihole instaled (in container) port 80
   * [ ] blah - no api / settings, need to use /etc/pihole/setupVars.conf ?
+  * [x] add mqtt dns entry to pihole so the devices can use mqtt!
   * [ ] til then, need to hand configure DHCP - 10.11.11.100 -> 10.11.11.200, router 10.11.11.1
   * [ ] need to put the website on a different port, or work out how to do the DHCP server using caddy?
 * [x] Unifi controller configured with initial Folly WiFi (in container) port 8080

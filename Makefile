@@ -7,7 +7,7 @@ TERRAFORM_TOKEN=$(shell cat ~/.terraform_cloud.token)
 TERRAFORMTAG=0.14.5
 
 COMPUTER=sven-screen1
-#COMPUTER=follybase1
+COMPUTER=follybase1
 TARGET="$(PWD)/computers/$(COMPUTER)/"
 
 plan:

@@ -82,4 +82,26 @@ resource "docker_container" "pihole" {
 }
 
 // TODO: can configure dnsmasq using a file that goes into /etc/dnsmasq.d/
+resource "null_resource" "pihole_custom_dns" {
+  depends_on = [ docker_container.pihole ]
 
+  connection {
+    type = "ssh"    
+    user = var.initial_user
+    host = var.host_name
+    password = var.initial_password
+  }
+
+  # TODO: expand the fs, setup wifi, do all the things
+
+  provisioner "remote-exec" {
+    inline = [
+      <<-EOF
+      if docker exec -it pihole grep "10.11.11.1 mqtt" /etc/pihole/custom.list ; then
+        return
+      fi
+      docker exec -it pihole sh -c 'echo "10.11.11.1 mqtt" >> /etc/pihole/custom.list'
+EOF
+    ]
+  }
+}
