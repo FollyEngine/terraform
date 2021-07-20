@@ -91,22 +91,17 @@ data "unifi_user_group" "default" {
 data "unifi_ap_group" "default" {
 }
 
-resource "unifi_network" "lan" {
-  name    = "wifi-lan"
-  purpose = "corporate"
+# need to import using:
+#   terraform import module.unifi-controller.unifi_network.lan name=LAN
+# resource "unifi_network" "lan" {
+#   name = "LAN"
+# }
 
-  subnet       = "10.11.11.1/24"
-  dhcp_start   = "10.11.11.6"
-  dhcp_stop    = "10.11.11.254"
-  vlan_id = 7
-  dhcp_enabled = false
-}
-
-resource "unifi_wlan" "wifi" {
-  name          = data.lastpass_secret.folly_wifi.username
-  passphrase    = data.lastpass_secret.folly_wifi.password
-  user_group_id = data.unifi_user_group.default.id
-  security      = "wpapsk"
-  ap_group_ids  = [data.unifi_ap_group.default.id]
-  network_id    = unifi_network.lan.id
-}
+# resource "unifi_wlan" "wifi" {
+#   name          = data.lastpass_secret.folly_wifi.username
+#   passphrase    = data.lastpass_secret.folly_wifi.password
+#   user_group_id = data.unifi_user_group.default.id
+#   security      = "wpapsk"
+#   ap_group_ids  = [data.unifi_ap_group.default.id]
+#   network_id    = unifi_network.lan.id
+# }

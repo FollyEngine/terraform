@@ -17,8 +17,8 @@ resource "docker_image" "agent" {
 #   -v portainer_agent_data:/data \
 #   --restart always \
 #   -e EDGE=1 \
-#   -e EDGE_ID=5230f94b-69d0-4d1a-83bd-502b766cf266 \
-#   -e EDGE_KEY=aHR0cDovL3BvcnRhaW5lcnxwb3J0YWluZXI6ODAwMHxiNjpmNTowNDo3MzowZTpmYToyYzo3NzpkYzowZjo5Mzo4Yzo1Mjo1Yjo3NDplM3wy \
+#   -e EDGE_ID=05751624-1150-45d2-b254-c4d41d6c2a9e \
+#   -e EDGE_KEY=aHR0cDovLzEwMC43Mi43OS43NXwxMDAuNzIuNzkuNzU6ODAwMHxiNjpmNTowNDo3MzowZTpmYToyYzo3NzpkYzowZjo5Mzo4Yzo1Mjo1Yjo3NDplM3w2 \
 #   -e CAP_HOST_MANAGEMENT=1 \
 #   --name portainer_edge_agent \
 #   portainer/agent
@@ -52,8 +52,8 @@ resource "docker_container" "portainer_edge_agent" {
 
   env = [
     "EDGE=1",
-    "EDGE_ID=5230f94b-69d0-4d1a-83bd-502b766cf266",
-    "EDGE_KEY=aHR0cDovL3BvcnRhaW5lcnxwb3J0YWluZXI6ODAwMHxiNjpmNTowNDo3MzowZTpmYToyYzo3NzpkYzowZjo5Mzo4Yzo1Mjo1Yjo3NDplM3wy",
+    "EDGE_ID=05751624-1150-45d2-b254-c4d41d6c2a9e",
+    "EDGE_KEY=aHR0cDovLzEwMC43Mi43OS43NXwxMDAuNzIuNzkuNzU6ODAwMHxiNjpmNTowNDo3MzowZTpmYToyYzo3NzpkYzowZjo5Mzo4Yzo1Mjo1Yjo3NDplM3w2",
     "CAP_HOST_MANAGEMENT=1"
   ]
 }
