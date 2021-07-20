@@ -136,6 +136,14 @@ module "node-red" {
   initial_password = local.initial_password
 }
 
+module "portainer-agent" {
+  source = "../../modules/portainer-agent"
+
+  # host_name = local.host_name
+  # ip_address = local.ip_address
+  # initial_user = local.initial_user
+  # initial_password = local.initial_password
+}
 
 resource "null_resource" "eth0-static-ip" {
   connection {
