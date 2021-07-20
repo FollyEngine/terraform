@@ -19,9 +19,9 @@ will result in:
   * [x] add mqtt dns entry to pihole so the devices can use mqtt!
   * [x] til then, need to hand configure DHCP - 10.11.11.100 -> 10.11.11.200, router 10.11.11.1
   * [x] need to put the website on a different port (8888), or work out how to do the DHCP server using caddy?
+  * [ ] pihole password needs to not be the default pi user password
 * [x] Unifi controller configured with initial Folly WiFi (in container) port 8080
-  * [ ] Auto configure it with password, and Folly WIFI network
-    * sadly, needs manual intervention
+  * [x] Auto configure it with password, and Folly WIFI network
   * [ ] move to caddy
   * [ ] figure out auth
 * [ ] caddy with docker-proxy-plugin installed
@@ -32,6 +32,7 @@ will result in:
 * [x] terraform state stored in the terraform cloud
   * [ ] separate out each host into its own workspace
   * [ ] figure out how to make seeing the state&plan for each obvious - some admin grafana vis?
+* [ ] install dig
 
 ## How to use
 
